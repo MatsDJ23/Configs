@@ -72,28 +72,12 @@
   },
   "theme": "Ayu Dark",
   "theme_overrides": {
-    "Moonlight": {
-      "created": "#00ff00",
-      "created.background": "#22c55e",
-      "modified": "#ffa500",
-      "modified.background": "#ffa500",
-      "deleted": "#ef4444",
-      "deleted.background": "#ef4444",
-      "syntax": {
-        "property": {
-          "color": "#e06c75",
-        },
-        "attribute": {
-          "color": "#ff9e64",
-        },
-      },
-    },
-    "Rosé Pine Moon": {
-      "syntax": {
-        "hint": {
-          "color": "#6e6a86",
-        },
-      },
+    "Ayu Dark": {
+      "background": "#131721",
+      "editor.background": "#131721",
+      "panel.background": "#1d2230",
+      "title_bar.background": "#1d2230",
+      "tab_bar.background": "#1d2230",
     },
   },
   "agent": {
