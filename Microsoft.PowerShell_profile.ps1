@@ -1,3 +1,10 @@
+# Custom text printed above the prompt line
+Write-Host "Custom command: Execute main.c (compiles and runs the gives C file)" -ForegroundColor Yellow
+# Print an empty line (Enter) first
+Write-Host ""
+
+# this custom command utilizes cl.exe for compiling, same as vscode but this you can use without it.
+
 function prompt {
     $user = $env:USERNAME
     $currentPath = (Get-Location).Path
@@ -9,11 +16,6 @@ function prompt {
     } else {
         $folder = Split-Path -Leaf $currentPath
     }
-
-    # Custom text printed above the prompt line
-    Write-Host "Custom command: Execute main.c (compiles and runs the gives C file)" -ForegroundColor Yellow
-    # Print an empty line (Enter) first
-    Write-Host ""
 
     # Output styled text directly using PowerShell color parameters
     Write-Host "${user} " -ForegroundColor Green -NoNewline
