@@ -1,0 +1,338 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "enable_language_server": true,
+  "cli_default_open_behavior": "existing_window",
+  "markdown_preview": {
+    "max_width": 1000.0,
+  },
+  "ui_font_family": ".SystemUIFont",
+  "status_bar": {
+    "show_active_file": true,
+  },
+  // Installed on startup if missing. Zed never uninstalls: `false` and removing
+  // an entry both just stop future auto-installs. Zed does not write this list,
+  // so installing via the Extensions panel won't add anything here.
+  "auto_install_extensions": {
+    "dockerfile": true,
+    "git-firefly": true,
+    "material-icon-theme": true,
+    "nix": true,
+    "prisma": true,
+    "rose-pine-theme": true,
+    "shadcn-mcp": true,
+    "sql": true,
+    "toml": true,
+    "graphql": true,
+  },
+  "session": {
+    "trust_all_worktrees": true,
+  },
+  "code_lens": "on",
+  "collaboration_panel": {
+    "dock": "left",
+  },
+  "helix_mode": false,
+  "vim": {
+    "toggle_relative_line_numbers": true,
+  },
+  "diff_view_style": "unified",
+  "agent_servers": {
+    "claude-acp": {
+      "default_config_options": {
+        "model": "opus[1m]",
+        "mode": "default",
+        "fast": false,
+        "effort": "max",
+      },
+      "type": "registry",
+    },
+    "github-copilot-cli": {
+      "type": "registry",
+    },
+    "github-copilot": {
+      "type": "registry",
+    },
+  },
+  "scroll_sensitivity": 4.0,
+  "excerpt_context_lines": 5,
+  "git_panel": {
+    "show_count_badge": true,
+    "file_icons": true,
+    "group_by": "none",
+    "dock": "left",
+    "tree_view": true,
+    "default_width": 420.0,
+  },
+  "theme": "Ayu Dark",
+  "theme_overrides": {
+    "Moonlight": {
+      "created": "#00ff00",
+      "created.background": "#22c55e",
+      "modified": "#ffa500",
+      "modified.background": "#ffa500",
+      "deleted": "#ef4444",
+      "deleted.background": "#ef4444",
+      "syntax": {
+        "property": {
+          "color": "#e06c75",
+        },
+        "attribute": {
+          "color": "#ff9e64",
+        },
+      },
+    },
+    "Rosé Pine Moon": {
+      "syntax": {
+        "hint": {
+          "color": "#6e6a86",
+        },
+      },
+    },
+  },
+  "agent": {
+    "show_turn_stats": true,
+    "dock": "right",
+    "single_file_review": true,
+    "default_profile": "ask",
+    "default_model": {
+      "effort": "high",
+      "enable_thinking": true,
+      "provider": "copilot_chat",
+      "model": "gemini-3.1-pro-preview",
+    },
+  },
+  "expand_excerpt_lines": 10,
+  "scroll_beyond_last_line": "vertical_scroll_margin",
+  "horizontal_scroll_margin": 0.0,
+  "colorize_brackets": true,
+  "indent_guides": {
+    "coloring": "indent_aware",
+  },
+  "edit_predictions": {
+    "allow_data_collection": "no",
+    "disabled_globs": [],
+    "mode": "subtle",
+  },
+  "calls": {
+    "mute_on_join": true,
+  },
+  "completions": {
+    "words_min_length": 2,
+    "words": "enabled",
+  },
+  "completion_menu_scrollbar": "system",
+  "outline_panel": {
+    "dock": "left",
+  },
+  "preview_tabs": {
+    "enable_preview_file_from_code_navigation": false,
+    "enable_preview_from_multibuffer": false,
+    "enable_preview_from_file_finder": true,
+  },
+  "tabs": {
+    "file_icons": true,
+    "git_status": true,
+  },
+  "title_bar": {
+    "show_branch_status_icon": true,
+    "show_menus": true,
+  },
+  "project_panel": {
+    "diagnostic_badges": true,
+    "git_status_indicator": true,
+    "dock": "left",
+  },
+  "format_on_save": "on",
+  "search": {
+    "center_on_match": true,
+    "regex": true,
+  },
+  "diagnostics": {
+    "inline": {
+      "enabled": false,
+    },
+  },
+  "max_tabs": 15,
+  "git": {
+    "inline_blame": {
+      "padding": 0,
+    },
+  },
+  "minimap": {
+    "display_in": "all_editors",
+    "max_width_columns": 90,
+    "thumb": "hover",
+  },
+  "fast_scroll_sensitivity": 2.0,
+  "vertical_scroll_margin": 6.0,
+  "prettier": {
+    "allowed": true,
+  },
+  "terminal": {
+    "working_directory": "current_file_directory",
+    "copy_on_select": true,
+    "font_size": 15.0,
+    "cursor_shape": "bar",
+  },
+  "icon_theme": "Material Icon Theme",
+  "inlay_hints": {
+    "enabled": false,
+    "show_background": true,
+  },
+  "file_types": {
+    "Helm": [
+      "**/templates/**/*.tpl",
+      "**/templates/**/*.yaml",
+      "**/templates/**/*.yml",
+      "**/helmfile.d/**/*.yaml",
+      "**/helmfile.d/**/*.yml",
+    ],
+  },
+  "base_keymap": "VSCode",
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false,
+  },
+  "load_direnv": "shell_hook",
+  "autosave": {
+    "after_delay": {
+      "milliseconds": 1000,
+    },
+  },
+  "lsp": {
+    "clangd": {
+      "binary": {
+        "arguments": [
+          "--query-driver=C:/Users/Mats/.platformio/packages/toolchain-xtensa-esp32/bin/xtensa-esp32-elf-*",
+        ],
+      },
+    },
+    "vtsls": {
+      "settings": {
+        "typescript": {
+          "updateImportsOnFileMove": {
+            "enabled": "always",
+          },
+        },
+        "javascript": {
+          "updateImportsOnFileMove": {
+            "enabled": "always",
+          },
+        },
+      },
+      "enable_lsp_tasks": true,
+    },
+    "eslint": {
+      "settings": {
+        // Resolve the project's eslint.config.js / .eslintrc.* from the nearest
+        // package.json instead of the worktree root. This is what makes nested
+        // and monorepo configs get picked up correctly.
+        "workingDirectory": {
+          "mode": "auto",
+        },
+        // Uncomment to pin one specific config file instead of letting ESLint
+        // discover it. Path is relative to the worktree root. Better placed in
+        // a project's .zed/settings.json than here.
+        // "configFile": "packages/web/eslint.config.js",
+        "problems": {
+          "shortenToSingleLine": false,
+        },
+        "rulesCustomizations": [],
+      },
+    },
+    // The GraphQL LSP reads graphql.config.{yml,yaml,js,ts} or .graphqlrc from
+    // the worktree root. Uncomment (per project) if yours lives elsewhere.
+    // "graphql": {
+    //   "settings": {
+    //     "config_dir": "./packages/api",
+    //   },
+    // },
+  },
+  "languages": {
+    "JavaScript": {
+      "language_servers": [
+        "!typescript-language-server",
+        "eslint",
+        "graphql",
+        "tailwindcss-language-server",
+        "...",
+      ],
+      // "prettier" is a first-class formatter in Zed, not a language server —
+      // {"language_server": {"name": "prettier"}} resolves to nothing and is
+      // silently skipped, leaving files unformatted.
+      "formatter": [{ "code_action": "source.fixAll.eslint" }, "prettier"],
+    },
+    "TSX": {
+      "language_servers": [
+        "!typescript-language-server",
+        "eslint",
+        "graphql",
+        "tailwindcss-language-server",
+        "...",
+      ],
+      // "prettier" is a first-class formatter in Zed, not a language server —
+      // {"language_server": {"name": "prettier"}} resolves to nothing and is
+      // silently skipped, leaving files unformatted.
+      "formatter": [{ "code_action": "source.fixAll.eslint" }, "prettier"],
+      "inlay_hints": {
+        "enabled": true,
+        "show_type_hints": false,
+      },
+      "tab_size": 2,
+    },
+    "TypeScript": {
+      "language_servers": [
+        "!typescript-language-server",
+        "eslint",
+        "graphql",
+        "tailwindcss-language-server",
+        "...",
+      ],
+      // "prettier" is a first-class formatter in Zed, not a language server —
+      // {"language_server": {"name": "prettier"}} resolves to nothing and is
+      // silently skipped, leaving files unformatted.
+      "formatter": [{ "code_action": "source.fixAll.eslint" }, "prettier"],
+      "inlay_hints": {
+        "enabled": true,
+        "show_type_hints": false,
+      },
+      "tab_size": 2,
+    },
+    "Python": {
+      "language_servers": [
+        "ruff",
+        "!basedpyright",
+        "!pyright",
+        "ty",
+        "!pyrefly",
+      ],
+      "format_on_save": "on",
+      "formatter": [{ "language_server": { "name": "ruff" } }],
+    },
+    "Rust": {
+      "formatter": "language_server",
+    },
+    // C++ support (and its tree-sitter grammar) is native to Zed — nothing to
+    // install. .cpp/.hpp/.cc/.h files are parsed as "C++" here; plain .c/.h
+    // files are parsed as "C" instead and use Zed's defaults unless you add
+    // a "C" block too.
+    "C++": {
+      "language_servers": ["clangd", "..."],
+      "formatter": { "language_server": { "name": "clangd" } },
+      "format_on_save": "on",
+      "tab_size": 4,
+      "inlay_hints": {
+        "enabled": true,
+        "show_type_hints": true,
+        "show_parameter_hints": true,
+      },
+    },
+  },
+}
