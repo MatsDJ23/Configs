@@ -167,6 +167,10 @@
   },
   "icon_theme": "Material Icon Theme",
   "inlay_hints": {
+    "show_other_hints": false,
+    "show_parameter_hints": false,
+    "show_value_hints": false,
+    "show_type_hints": false,
     "enabled": false,
     "show_background": true,
   },
@@ -194,8 +198,7 @@
     "clangd": {
       "binary": {
         "arguments": [
-          "--query-driver=C:/Users/Mats/.platformio/packages/toolchain-xtensa-esp32/bin/xtensa-esp32-elf-*",
-          "C:/Program Files*/**/cl.exe",
+          "--query-driver=C:/Users/Mats/.platformio/packages/toolchain-xtensa-esp32/bin/xtensa-esp32-elf-*,C:/Users/Mats/.platformio/packages/toolchain-atmelavr/bin/avr-*,C:/Program Files*/**/cl.exe",
         ],
       },
     },
