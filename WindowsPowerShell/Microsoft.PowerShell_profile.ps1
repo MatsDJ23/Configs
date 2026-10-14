@@ -13,6 +13,9 @@ Write-Host ""
 # - vcpkg package manager
 # remove any other things on the optional list
 
+# for the mkvinfo:
+# winget install ffmpeg
+
 function prompt {
     $user = $env:USERNAME
     $currentPath = (Get-Location).Path
@@ -58,4 +61,8 @@ function execute ($file) {
 
     # Run the build environment and execute
     cmd /c "`"$vcvars`" x64 >nul && cl.exe /Zi /EHsc /nologo /Fe:`"$fileName.exe`" `"$file`" && `"$fileName.exe`""
+}
+
+function mkvinfo {
+    & "$HOME\Documents\WindowsPowerShell\Get-MkvInfo.ps1" @args
 }
