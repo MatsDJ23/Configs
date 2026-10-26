@@ -1,7 +1,7 @@
 # Custom text printed above the prompt line
 Write-Host "Execute main.c (compiles and runs the gives C file)" -ForegroundColor Yellow
 # Print an empty line (Enter) first
-Write-Host "Get video file info by using: mkvinfo file.mkv" -ForegroundColor Yellow
+Write-Host "Get video file info by using: vidinfo file.mkv (for mkv and mp4)" -ForegroundColor Yellow
 Write-Host ""
 
 # For execute main.c (or any c file to work) vscode build tools has to install this list of items:
@@ -64,6 +64,6 @@ function execute ($file) {
     cmd /c "`"$vcvars`" x64 >nul && cl.exe /Zi /EHsc /nologo /Fe:`"$fileName.exe`" `"$file`" && `"$fileName.exe`""
 }
 
-function mkvinfo {
+function vidinfo {
     & "$HOME\Documents\WindowsPowerShell\Get-MkvInfo.ps1" @args
 }
