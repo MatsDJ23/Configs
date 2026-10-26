@@ -1,6 +1,7 @@
 # Custom text printed above the prompt line
-Write-Host "Custom command: Execute main.c (compiles and runs the gives C file)" -ForegroundColor Yellow
+Write-Host "Execute main.c (compiles and runs the gives C file)" -ForegroundColor Yellow
 # Print an empty line (Enter) first
+Write-Host "Get video file info by using: mkvinfo file.mkv" -ForegroundColor Yellow
 Write-Host ""
 
 # For execute main.c (or any c file to work) vscode build tools has to install this list of items:
