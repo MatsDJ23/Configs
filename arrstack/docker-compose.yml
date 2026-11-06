@@ -1,0 +1,180 @@
+x-env: &env
+  PUID: 1002
+  PGID: 1002
+  TZ: Europe/Amsterdam
+  UMASK: "002"
+
+services:
+  hub:
+    image: nginx:alpine
+    container_name: hub
+    volumes:
+      - ./hub:/usr/share/nginx/html:ro
+    ports:
+      - 80:80
+    restart: unless-stopped
+
+  gluetun:
+    image: qmcgaw/gluetun:latest
+    container_name: gluetun
+    networks:
+      arr-network:
+        ipv4_address: 172.18.0.2
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    environment:
+      - VPN_SERVICE_PROVIDER=protonvpn
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=${WIREGUARD_KEY}
+      - WIREGUARD_ADDRESSES=10.2.0.2/32
+      - SERVER_COUNTRIES=Netherlands
+      - VPN_PORT_FORWARDING=on
+      - PORT_FORWARD_ONLY=on
+      - VPN_PORT_FORWARDING_UP_COMMAND=/bin/sh -c 'wget -O- --retry-connrefused --post-data "json={\"listen_port\":{{PORTS}}}" http://127.0.0.1:8080/api/v2/app/setPreferences 2>&1'
+      - FIREWALL=on
+      - HEALTH_TARGET_ADDRESSES=github.com
+      - HEALTH_SUCCESS_WAIT_DURATION=5s
+      - IPV6=off
+      - DNS_UPSTREAM_RESOLVER_TYPE=plain
+      - DNS_UPSTREAM_PLAIN_ADDRESSES=10.2.0.1:53
+#      - DNS_UPSTREAM_PLAIN_ADDRESSES=1.1.1.1:53,9.9.9.9:53,8.8.8.8:53
+    ports:
+      - 8080:8080    # qBittorrent Web UI
+      - 9696:9696    # Prowlarr Web UI
+      - 8191:8191    # FlareSolverr
+      - 5800:5800    # JDownloader2 Web UI
+    volumes:
+      - ./config/gluetun:/gluetun
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:9999 || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    network_mode: "service:gluetun"
+    environment:
+      - LOG_LEVEL=info
+      - TZ=Europe/Amsterdam
+    depends_on:
+      gluetun:
+        condition: service_healthy
+    restart: unless-stopped
+
+  qbittorrent:
+    stop_grace_period: 60s
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    network_mode: "service:gluetun"
+    depends_on:
+      gluetun:
+        condition: service_healthy
+    environment:
+      <<: *env
+      WEBUI_PORT: 8080
+    volumes:
+      - ./config/qbittorrent:/config
+      - /mnt/jellyfin:/ALL
+    restart: unless-stopped
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    network_mode: "service:gluetun"
+    depends_on:
+      gluetun:
+        condition: service_healthy
+    environment:
+      <<: *env
+    volumes:
+      - ./config/prowlarr:/config
+    restart: unless-stopped
+
+  jdownloader:
+    image: jlesage/jdownloader-2:latest
+    container_name: jdownloader
+    network_mode: "service:gluetun"
+    depends_on:
+      gluetun:
+        condition: service_healthy
+    environment:
+      USER_ID: 1002
+      GROUP_ID: 1002
+      TZ: Europe/Amsterdam
+    volumes:
+      - ./config/jdownloader:/config
+      - /mnt/jellyfin/Downloads/JDownloader:/output
+    restart: unless-stopped
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    networks:
+      arr-network:
+        ipv4_address: 172.18.0.5
+    environment:
+      <<: *env
+    volumes:
+      - ./config/sonarr:/config
+      - /mnt/jellyfin:/ALL
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    networks:
+      arr-network:
+        ipv4_address: 172.18.0.3
+    environment:
+      <<: *env
+    volumes:
+      - ./config/radarr:/config
+      - /mnt/jellyfin:/ALL
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    networks:
+      arr-network:
+        ipv4_address: 172.18.0.14
+    environment:
+      <<: *env
+    volumes:
+      - ./config/bazarr:/config
+      - /mnt/jellyfin:/ALL
+    ports:
+      - 6767:6767
+    restart: unless-stopped
+
+  lidarr:
+    image: lscr.io/linuxserver/lidarr:latest
+    container_name: lidarr
+    networks:
+      arr-network:
+        ipv4_address: 172.18.0.4
+    environment:
+      <<: *env
+    volumes:
+      - ./config/lidarr:/config
+      - /mnt/jellyfin:/ALL
+    ports:
+      - 8686:8686
+    restart: unless-stopped
+
+networks:
+  arr-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/24

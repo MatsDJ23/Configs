@@ -1,0 +1,92 @@
+# Optimized compose file for arrstack
+x-arr: &arr
+  networks:
+    - arr-network
+  environment:
+    - PUID=1002
+    - PGID=1002
+    - TZ=Europe/Amsterdam
+  restart: unless-stopped
+
+services:
+  hub:
+    image: nginx:alpine
+    container_name: hub
+    volumes:
+      - ./hub:/usr/share/nginx/html:ro
+    ports:
+      - 80:80
+    restart: unless-stopped
+
+  sabnzbd:
+    <<: *arr
+    image: lscr.io/linuxserver/sabnzbd:latest
+    container_name: sabnzbd
+    volumes:
+      - ./config/sabnzbd:/config
+      - /mnt/jellyfin:/ALL
+    ports:
+      - 8080:8080
+
+  prowlarr:
+    <<: *arr
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    volumes:
+      - ./config/prowlarr:/config
+    ports:
+      - 9696:9696
+
+  sonarr:
+    <<: *arr
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    volumes:
+      - ./config/sonarr:/config
+      - /mnt/jellyfin:/ALL
+    ports:
+      - 8989:8989
+
+  radarr:
+    <<: *arr
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    volumes:
+      - ./config/radarr:/config
+      - /mnt/jellyfin:/ALL
+    ports:
+      - 7878:7878
+
+  lidarr:
+    <<: *arr
+    image: lscr.io/linuxserver/lidarr:latest
+    container_name: lidarr
+    volumes:
+      - ./config/lidarr:/config
+      - /mnt/jellyfin:/ALL
+    ports:
+      - 8686:8686
+
+  bazarr:
+    <<: *arr
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    volumes:
+      - ./config/bazarr:/config
+      - /mnt/jellyfin:/ALL
+    ports:
+      - 6767:6767
+
+  flaresolverr:
+    <<: *arr
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    environment:
+      - LOG_LEVEL=info
+      - TZ=Europe/Amsterdam
+    ports:
+      - 8191:8191
+
+networks:
+  arr-network:
+    driver: bridge
