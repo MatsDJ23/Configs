@@ -1,0 +1,4 @@
+// never allow any .env files
+.env
+*.env
+.env.*
